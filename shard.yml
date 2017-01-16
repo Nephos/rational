@@ -1,0 +1,13 @@
+name: rational
+version: 0.1.0
+
+authors:
+  - Arthur Poulet <arthur.poulet@mailoo.org>
+
+targets:
+  rational:
+    main: src/rational.cr
+
+crystal: 0.20.3
+
+license: MIT
