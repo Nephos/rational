@@ -4,11 +4,21 @@ TODO: Write a description here
 
 ## Installation
 
-TODO: Write installation instructions here
+Add this to your application's `shard.yml`:
+
+```yaml
+dependencies:
+  rational:
+    github: Nephos/rational
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```crystal
+require "rational"
+
+Rational.new(1) / Rational.new(2) # => 1/2
+```
 
 ## Development
 
