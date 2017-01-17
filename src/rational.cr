@@ -59,8 +59,8 @@ class Rational
     Rational.new @num, @den * rhs
   end
 
-  def reduce
-    gcd = self.num.gcd(self.den)
+  private def reduce
+    gcd = @num.gcd(self.den)
     @num /= gcd
     @den /= gcd
     self
