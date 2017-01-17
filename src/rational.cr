@@ -1,8 +1,8 @@
 require "./rational/*"
 
 class Rational
-  property num : Int32
-  property den : Int32
+  getter num : Int32
+  getter den : Int32
 
   def initialize(@num, @den = 1)
     reduce
@@ -20,64 +20,49 @@ class Rational
     "#{self.num}/#{self.den}"
   end
 
+  def ==(rhs : Rational)
+    @num == rhs.num && @den == rhs.den
+  end
+
   def +(rhs : Rational)
-    copy = self.dup
-    copy = self.dup
-    denominator = copy.den * rhs.den
-    num1 = copy.num * rhs.den
-    num2 = rhs.num * copy.den
-    copy.num = num1 + num2
-    copy.den = denominator
-    copy.reduce
+    denominator = @den * rhs.den
+    num1 = @num * rhs.den
+    num2 = rhs.num * @den
+    Rational.new num1 + num2, denominator
   end
 
   def +(rhs : Number::Primitive)
-    copy = self.dup
-    copy.num += copy.den * rhs
-    copy.reduce
+    Rational.new @num + @den * rhs, @den
   end
 
   def -(rhs : Rational)
-    copy = self.dup
-    copy.num = -copy.num
-    copy + rhs
+    self + Rational.new(-rhs.num, rhs.den)
   end
 
   def -(rhs : Number::Primitive)
-    copy = self.dup
-    copy.num *= rhs
-    copy.reduce
+    Rational.new @num * rhs, @den
   end
 
   def *(rhs : Rational)
-    copy = self.dup
-    copy.num += copy.den * rhs
-    copy.reduce
+    Rational.new @num * rhs.num, @den * rhs.den
   end
 
   def *(rhs : Number::Primitive)
-    copy = self.dup
-    copy.num *= rhs
-    copy.reduce
+    Rational.new (rhs * @den) + @num, @den
   end
 
   def /(rhs : Rational)
-    copy = self.dup
-    copy.num *= rhs.den
-    copy.den *= rhs.num
-    copy.reduce
+    Rational.new @num * rhs.den, @den * rhs.num
   end
 
   def /(rhs : Number::Primitive)
-    copy = self.dup
-    copy.den *= rhs
-    copy.reduce
+    Rational.new @num, @den * rhs
   end
 
   def reduce
     gcd = self.num.gcd(self.den)
-    self.num /= gcd
-    self.den /= gcd
+    @num /= gcd
+    @den /= gcd
     self
   end
 end
