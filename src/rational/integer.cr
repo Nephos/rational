@@ -7,7 +7,7 @@ module Rational::Int
 end
 
 module Rational::Number
-  {% for op in ["==", "!=", ">", "<", ">=", "<="] %}
+  {% for op in ["==", "!=", ">", "<", ">=", "<=", "<=>"] %}
     def {{op.id}}(rhs : Rational)
       self.to_f {{op.id}} rhs.to_f
     end

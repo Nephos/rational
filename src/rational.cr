@@ -27,7 +27,7 @@ struct Rational
     @num == rhs.num && @den == rhs.den
   end
 
-  {% for op in ["==", "!=", ">", "<", ">=", "<="] %}
+  {% for op in ["==", "!=", ">", "<", ">=", "<=", "<=>"] %}
     def {{op.id}}(rhs : ::Number::Primitive)
       self.to_f {{op.id}} rhs.to_f
     end
