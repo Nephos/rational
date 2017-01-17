@@ -1,28 +1,33 @@
-require "./rational/*"
-
-class Rational
+struct Rational
   getter num : Int32
   getter den : Int32
 
   def initialize(@num, @den = 1)
+    raise DivisionByZero.new "Denominator cannot be zero" if @den == 0
     reduce
   end
 
   def to_i
-    self.num / self.den
+    (@num / @den).to_i
   end
 
   def to_f
-    self.num.to_f / self.den.to_f
+    (@num.to_f / @den.to_f).to_f
   end
 
   def to_s
-    "#{self.num}/#{self.den}"
+    @den > 1 ? "#{@num}/#{@den}" : @num.to_s
   end
 
   def ==(rhs : Rational)
     @num == rhs.num && @den == rhs.den
   end
+
+  {% for op in ["==", "!=", ">", "<", ">=", "<="] %}
+    def {{op.id}}(rhs : ::Number::Primitive)
+      self.to_f {{op.id}} rhs.to_f
+    end
+  {% end %}
 
   def +(rhs : Rational)
     denominator = @den * rhs.den
@@ -31,31 +36,33 @@ class Rational
     Rational.new num1 + num2, denominator
   end
 
-  def +(rhs : Number::Primitive)
-    Rational.new @num + @den * rhs, @den
-  end
-
   def -(rhs : Rational)
     self + Rational.new(-rhs.num, rhs.den)
-  end
-
-  def -(rhs : Number::Primitive)
-    Rational.new @num * rhs, @den
   end
 
   def *(rhs : Rational)
     Rational.new @num * rhs.num, @den * rhs.den
   end
 
-  def *(rhs : Number::Primitive)
-    Rational.new (rhs * @den) + @num, @den
-  end
-
   def /(rhs : Rational)
     Rational.new @num * rhs.den, @den * rhs.num
   end
 
-  def /(rhs : Number::Primitive)
+  # Optimised versions of the Rational ones
+
+  def +(rhs : ::Number::Primitive)
+    Rational.new @num + @den * rhs, @den
+  end
+
+  def -(rhs : ::Number::Primitive)
+    Rational.new @num * rhs, @den
+  end
+
+  def *(rhs : ::Number::Primitive)
+    Rational.new (rhs * @den) + @num, @den
+  end
+
+  def /(rhs : ::Number::Primitive)
     Rational.new @num, @den * rhs
   end
 
@@ -66,3 +73,5 @@ class Rational
     self
   end
 end
+
+require "./rational/*"

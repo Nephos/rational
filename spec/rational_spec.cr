@@ -32,6 +32,13 @@ describe Rational do
 
     h = a * b
     h.should eq(Rational.new 6)
+
+    (a == a).should eq(true)
+    (a == 2).should eq(true)
+    (a == 2.0).should eq(true)
+    (a != b).should eq(true)
+    (a != 3).should eq(true)
+    (a != 3.0).should eq(true)
   end
 
   it "reduction of 2/4" do
@@ -39,5 +46,21 @@ describe Rational do
     b = Rational.new(4)
     c = a / b
     c.to_s.should eq("1/2")
+  end
+
+  it "numbers tests" do
+    ia = 1
+    fa = 1.0
+    ra = Rational.new 1
+    ib = 2
+    fb = 2.0
+    rb = Rational.new 2
+    (ra / rb).to_s.should eq("1/2")
+    (ia / rb).to_s.should eq("1/2")
+    (ra / ib).to_s.should eq("1/2")
+    (ia == ra).should eq(true)
+    (ia != rb).should eq(true)
+    (fa == ra).should eq(true)
+    (fa != rb).should eq(true)
   end
 end

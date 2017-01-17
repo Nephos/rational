@@ -1,3 +1,3 @@
-class Rational
+struct Rational
   VERSION = "0.1.0"
 end
