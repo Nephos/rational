@@ -2,9 +2,13 @@ struct Rational
   getter num : Int32
   getter den : Int32
 
-  def initialize(@num, @den = 1)
+  def initialize(@num : Int32, @den : Int32 = 1)
     raise DivisionByZero.new "Denominator cannot be zero" if @den == 0
     reduce
+  end
+
+  def self.new(num : Int, den : Int = 1)
+    Rational.new(num.to_i32, den.to_i32)
   end
 
   def to_i
@@ -48,21 +52,21 @@ struct Rational
     Rational.new @num * rhs.den, @den * rhs.num
   end
 
-  # Optimised versions of the Rational ones
+  # Optimised versions (better than self op Rational.new(rhs, 1))
 
-  def +(rhs : ::Number::Primitive)
+  def +(rhs : Int)
     Rational.new @num + @den * rhs, @den
   end
 
-  def -(rhs : ::Number::Primitive)
+  def -(rhs : Int)
     Rational.new @num * rhs, @den
   end
 
-  def *(rhs : ::Number::Primitive)
+  def *(rhs : Int)
     Rational.new (rhs * @den) + @num, @den
   end
 
-  def /(rhs : ::Number::Primitive)
+  def /(rhs : Int)
     Rational.new @num, @den * rhs
   end
 
