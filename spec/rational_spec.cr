@@ -55,6 +55,15 @@ describe Rational do
     ib = 2
     fb = 2.0
     rb = Rational.new 2
+    (ra + rb).to_s.should eq("3")
+    (ia + rb).to_s.should eq("3")
+    (ra + ib).to_s.should eq("3")
+    (ra - rb).to_s.should eq("-1")
+    (ia - rb).to_s.should eq("-1")
+    (ra - ib).to_s.should eq("-1")
+    (ra * rb).to_s.should eq("2")
+    (ia * rb).to_s.should eq("2")
+    (ra * ib).to_s.should eq("2")
     (ra / rb).to_s.should eq("1/2")
     (ia / rb).to_s.should eq("1/2")
     (ra / ib).to_s.should eq("1/2")

@@ -1,4 +1,6 @@
 struct Rational
+  include Comparable(::Number::Primitive)
+
   getter num : Int32
   getter den : Int32
 
@@ -59,11 +61,11 @@ struct Rational
   end
 
   def -(rhs : Int)
-    Rational.new @num * rhs, @den
+    Rational.new @num - (@den * rhs), @den
   end
 
   def *(rhs : Int)
-    Rational.new (rhs * @den) + @num, @den
+    Rational.new @num * rhs, @den
   end
 
   def /(rhs : Int)
