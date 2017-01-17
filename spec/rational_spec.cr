@@ -1,7 +1,9 @@
 require "./spec_helper"
 
+extend Rational::Helper
+
 describe Rational do
-  it "operators" do
+  it "basic operators" do
     a = Rational.new(2)
     a.num.should eq 2
     a.den.should eq 1
@@ -39,6 +41,32 @@ describe Rational do
     (a != b).should eq(true)
     (a != 3).should eq(true)
     (a != 3.0).should eq(true)
+  end
+
+  it "operator + is valid" do
+    (r(1, 2) + r(1, 2)).should eq(r(2, 2))
+    (r(1, 2) + r(1, 3)).should eq(r(5, 6))
+    (r(2, 3) + r(1, 3)).should eq(r(3, 3))
+  end
+
+  it "operator - is valid" do
+    (r(1, 2) - r(1, 2)).should eq(r(0, 1))
+    (r(1, 2) - r(1, 3)).should eq(r(1, 6))
+    (r(2, 3) - r(1, 3)).should eq(r(1, 3))
+  end
+
+  it "operator * is valid" do
+    (r(1, 2) * r(2, 1)).should eq(r(1, 1))
+    (r(1, 2) * r(1, 3)).should eq(r(1, 6))
+    (r(1, 2) * r(2, 3)).should eq(r(2, 6))
+    (r(1, 2) * r(4, 3)).should eq(r(4, 6))
+  end
+
+  it "operator * is valid" do
+    (r(1, 2) / r(2, 1)).should eq(r(1, 4))
+    (r(1, 2) / r(1, 3)).should eq(r(3, 2))
+    (r(1, 2) / r(2, 3)).should eq(r(3, 4))
+    (r(1, 2) / r(4, 3)).should eq(r(3, 8))
   end
 
   it "reduction of 2/4" do

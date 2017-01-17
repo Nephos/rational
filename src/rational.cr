@@ -78,6 +78,12 @@ struct Rational
     @den /= gcd
     self
   end
+
+  module Helper
+    def r(num : Int, den : Int = 1)
+      Rational.new(num, den)
+    end
+  end
 end
 
 require "./rational/*"
