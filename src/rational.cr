@@ -29,9 +29,17 @@ struct Rational
     @num == rhs.num && @den == rhs.den
   end
 
-  {% for op in ["==", "!=", ">", "<", ">=", "<=", "<=>"] %}
-    def {{op.id}}(rhs : ::Number::Primitive)
-      self.to_f {{op.id}} rhs.to_f
+  def !=(rhs : Rational)
+    @num != rhs.num || @den != rhs.den
+  end
+
+  {% for op in ["<", ">", "<=", ">=", "<=>"] %}
+    def {{op.id}}(rhs : Rational)
+      to_f {{op.id}} rhs.to_f
+    end
+
+    def <=>(rhs : ::Number::Primitive)
+      to_f {{op.id}} rhs.to_f
     end
   {% end %}
 

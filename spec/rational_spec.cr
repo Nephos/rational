@@ -100,4 +100,16 @@ describe Rational do
     (fa == ra).should eq(true)
     (fa != rb).should eq(true)
   end
+
+  it "cmp operators" do
+    ra = r(1)
+    rb = r(2)
+    (ra != rb).should eq(true)
+    (ra > rb).should eq(false)
+    (rb > ra).should eq(true)
+    (ra >= rb).should eq(false)
+    (rb >= ra).should eq(true)
+    (ra >= ra).should eq(true)
+    (ra != rb).should eq(true)
+  end
 end
